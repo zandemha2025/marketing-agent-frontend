@@ -1,0 +1,82 @@
+/* Onboarding Welcome - Clean, minimal Claude-inspired design */
+
+.onboarding-welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.welcome-content {
+    max-width: 440px;
+    width: 100%;
+}
+
+.welcome-content h1 {
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+}
+
+.welcome-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+/* Form */
+.welcome-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.input-wrapper {
+    width: 100%;
+}
+
+.domain-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.domain-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.domain-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.domain-input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Submit button */
+.btn-submit {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 1rem;
+}
+
+/* Note */
+.welcome-note {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin: 0;
+}

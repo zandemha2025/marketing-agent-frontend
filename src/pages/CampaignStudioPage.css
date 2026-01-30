@@ -1,0 +1,233 @@
+.campaign-studio {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    height: 100vh;
+    background: #0a0a0a;
+}
+
+/* Chat Panel */
+.campaign-studio__chat {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #222;
+    overflow: hidden;
+}
+
+/* Right Panel */
+.campaign-studio__panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Context Panel */
+.context-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.context-panel__header {
+    padding: 16px;
+    border-bottom: 1px solid #222;
+}
+
+.context-panel__header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.context-panel__content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+/* Phase Badge */
+.phase-indicator {
+    margin-bottom: 16px;
+}
+
+.phase-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #1a1a1a;
+    border-radius: 20px;
+    font-size: 12px;
+    text-transform: capitalize;
+    color: #888;
+}
+
+.phase-badge--initializing,
+.phase-badge--researching,
+.phase-badge--strategizing {
+    background: #1a1a2e;
+    color: #6366f1;
+}
+
+.phase-badge--awaiting_approval {
+    background: #2e2a1a;
+    color: #f59e0b;
+}
+
+.phase-badge--briefing,
+.phase-badge--producing {
+    background: #1a2e1a;
+    color: #22c55e;
+}
+
+.phase-badge--complete {
+    background: #1a2e2e;
+    color: #06b6d4;
+}
+
+.phase-badge--failed {
+    background: #2e1a1a;
+    color: #ef4444;
+}
+
+/* Progress */
+.progress-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background: #222;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar__fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.progress-label {
+    font-size: 12px;
+    color: #666;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* Status Message */
+.status-message {
+    padding: 12px;
+    background: #111;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 16px;
+}
+
+/* Error Message */
+.error-message {
+    padding: 12px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #f87171;
+}
+
+/* Phase Content */
+.phase-content {
+    text-align: center;
+    padding: 24px;
+}
+
+.phase-content p {
+    margin: 16px 0 0;
+    color: #666;
+    font-size: 13px;
+}
+
+/* Thinking Indicator */
+.thinking-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.thinking-indicator .dot {
+    width: 8px;
+    height: 8px;
+    background: #6366f1;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.thinking-indicator .dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.thinking-indicator .dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0.6);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Panel Switcher */
+.panel-switcher {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+}
+
+.panel-switcher button {
+    padding: 8px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.panel-switcher button:hover {
+    color: #fff;
+}
+
+.panel-switcher button.active {
+    background: #6366f1;
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .campaign-studio {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    .campaign-studio__chat {
+        border-right: none;
+        border-bottom: 1px solid #222;
+    }
+}

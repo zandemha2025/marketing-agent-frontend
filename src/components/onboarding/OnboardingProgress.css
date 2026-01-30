@@ -1,0 +1,64 @@
+/* Onboarding Progress - Clean, minimal Claude-inspired design */
+
+.onboarding-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.progress-content {
+    max-width: 400px;
+    width: 100%;
+}
+
+.progress-content h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+}
+
+/* Status row */
+.progress-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.status-label {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.status-percent {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Progress bar */
+.progress-bar-track {
+    width: 100%;
+    height: 4px;
+    background: var(--color-bg-tertiary);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--color-accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+/* Message */
+.progress-message {
+    margin-top: 24px;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+}

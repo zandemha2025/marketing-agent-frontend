@@ -1,0 +1,26 @@
+{
+  "name": "marketing-agent-v2",
+  "version": "2.0.0",
+  "description": "AI-Powered Marketing Campaign Platform",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:e2e": "npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui",
+    "test:e2e:report": "npx playwright show-report"
+  },
+  "dependencies": {
+    "@rollup/rollup-linux-arm64-gnu": "^4.57.0",
+    "convex": "^1.31.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "baseline-browser-mapping": "^2.9.19",
+    "vite": "^5.0.12"
+  }
+}

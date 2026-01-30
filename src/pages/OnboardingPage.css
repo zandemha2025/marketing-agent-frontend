@@ -1,0 +1,51 @@
+/* Onboarding Page - Clean, minimal Claude-inspired design */
+
+.onboarding-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: var(--color-bg-primary);
+}
+
+.onboarding-container {
+    width: 100%;
+    max-width: 560px;
+}
+
+/* No decorations - clean background */
+.bg-decoration {
+    display: none;
+}
+
+/* Error state */
+.onboarding-error {
+    text-align: center;
+    padding: 40px 24px;
+}
+
+.onboarding-error .error-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.onboarding-error h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+}
+
+.onboarding-error p {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+}
+
+.error-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
