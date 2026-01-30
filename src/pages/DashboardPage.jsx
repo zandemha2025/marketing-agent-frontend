@@ -126,20 +126,30 @@ function DashboardPage({ organizationId, onLogout, onNavigate }) {
         try {
             let cid = conversationId;
             if (!cid) {
-                // Create a new conversation implicitly -- send to org endpoint
+                // Try to find existing conversation or create a new one
                 const convos = await api.listConversations(organizationId);
                 const list = Array.isArray(convos) ? convos : convos.conversations || [];
                 if (list.length > 0) {
                     cid = list[0].id;
+                } else {
+                    // No conversations exist - create a new one
+                    const newConvo = await api.createConversation(
+                        organizationId,
+                        'Marketing Chat',
+                        'general'
+                    );
+                    cid = newConvo.id;
                 }
             }
-            if (cid) {
-                const response = await api.sendMessage(cid, text);
-                if (response && response.message) {
-                    setChatMessages(prev => [...prev, response.message]);
-                }
-                setConversationId(cid);
+
+            // Now we definitely have a conversation ID - send the message
+            const response = await api.sendMessage(cid, text);
+            if (response && response.assistant_message) {
+                setChatMessages(prev => [...prev, response.assistant_message]);
+            } else if (response && response.message) {
+                setChatMessages(prev => [...prev, response.message]);
             }
+            setConversationId(cid);
         } catch (err) {
             console.error('Failed to send message:', err);
             setChatMessages(prev => [...prev, {
