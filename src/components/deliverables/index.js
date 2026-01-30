@@ -1,4 +1,5 @@
 export { default as DeliverablesPanel } from './DeliverablesPanel';
+export { default as SlidingDeliverablesPanel } from './SlidingDeliverablesPanel';
 export { default as ConvexDeliverablesPanel } from './ConvexDeliverablesPanel';
 export { default as ConceptPitch } from './ConceptPitch';
 

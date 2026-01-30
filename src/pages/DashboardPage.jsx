@@ -2,6 +2,11 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import api from '../services/api';
 import AssetGallery from '../components/shared/AssetGallery';
 import ProgressIndicator from '../components/shared/ProgressIndicator';
+import { SlidingDeliverablesPanel } from '../components/deliverables';
+import { TrendMaster } from '../components/trends';
+import { KanbanBoard } from '../components/kanban';
+import { SocialCalendar } from '../components/calendar';
+import { ConversationalImageEditor } from '../components/image-editor';
 import './DashboardPage.css';
 
 // Map backend phases to display phases
@@ -16,8 +21,12 @@ const PHASE_MAP = {
 const NAV_ITEMS = [
     { key: 'chat', icon: '💬', label: 'Chat' },
     { key: 'campaigns', icon: '📋', label: 'Campaigns' },
+    { key: 'workflow', icon: '📊', label: 'Workflow' },
+    { key: 'calendar', icon: '📅', label: 'Calendar' },
+    { key: 'trends', icon: '🔥', label: 'TrendMaster' },
     { key: 'assets', icon: '📦', label: 'Assets' },
-    { key: 'brand', icon: '🎨', label: 'Brand' },
+    { key: 'image-editor', icon: '🎨', label: 'Image Editor' },
+    { key: 'brand', icon: '🏢', label: 'Brand' },
 ];
 
 function DashboardPage({ organizationId, onLogout, onNavigate }) {
@@ -26,6 +35,10 @@ function DashboardPage({ organizationId, onLogout, onNavigate }) {
     const [conversationId, setConversationId] = useState(null);
     const [showCreateCampaign, setShowCreateCampaign] = useState(false);
     const [showExecution, setShowExecution] = useState(null);
+    const [showDeliverables, setShowDeliverables] = useState(false);
+    const [deliverables, setDeliverables] = useState([]);
+    const [kanbanTasks, setKanbanTasks] = useState([]);
+    const [scheduledPosts, setScheduledPosts] = useState([]);
 
     // Data state
     const [campaigns, setCampaigns] = useState([]);
@@ -399,6 +412,12 @@ function DashboardPage({ organizationId, onLogout, onNavigate }) {
                             </button>
                             <button
                                 className="btn btn-secondary"
+                                onClick={() => setShowDeliverables(true)}
+                            >
+                                📦 Deliverables
+                            </button>
+                            <button
+                                className="btn btn-secondary"
                                 onClick={() => { setActiveView('assets'); }}
                             >
                                 View Assets
@@ -521,11 +540,96 @@ function DashboardPage({ organizationId, onLogout, onNavigate }) {
         </div>
     );
 
+    // Kanban handlers
+    const handleTaskMove = useCallback((taskId, newStatus) => {
+        setKanbanTasks(prev => prev.map(task =>
+            task.id === taskId ? { ...task, status: newStatus } : task
+        ));
+    }, []);
+
+    const handleAddTask = useCallback((task) => {
+        setKanbanTasks(prev => [...prev, { ...task, id: Date.now().toString() }]);
+    }, []);
+
+    // Calendar handlers
+    const handlePostMove = useCallback((postId, newDate) => {
+        setScheduledPosts(prev => prev.map(post =>
+            post.id === postId ? { ...post, scheduledAt: newDate.toISOString() } : post
+        ));
+    }, []);
+
+    const handleAddPost = useCallback((date) => {
+        const newPost = {
+            id: Date.now().toString(),
+            title: 'New Post',
+            platform: 'instagram',
+            scheduledAt: date.toISOString(),
+        };
+        setScheduledPosts(prev => [...prev, newPost]);
+    }, []);
+
+    // TrendMaster handlers
+    const handleCreateBriefFromTrend = useCallback((trendData) => {
+        setNewCampaign({
+            name: `Campaign: ${trendData.title}`,
+            goal: trendData.context,
+            target_audience: '',
+            platforms: [],
+        });
+        setShowCreateCampaign(true);
+    }, []);
+
+    const renderWorkflowView = () => (
+        <div className="workflow-view">
+            <KanbanBoard
+                tasks={kanbanTasks}
+                onTaskMove={handleTaskMove}
+                onAddTask={handleAddTask}
+                onTaskClick={(task) => console.log('Task clicked:', task)}
+                campaignName={selectedCampaign?.name || 'All Campaigns'}
+            />
+        </div>
+    );
+
+    const renderCalendarView = () => (
+        <div className="calendar-view">
+            <SocialCalendar
+                scheduledPosts={scheduledPosts}
+                onPostMove={handlePostMove}
+                onAddPost={handleAddPost}
+                onPostClick={(post) => console.log('Post clicked:', post)}
+            />
+        </div>
+    );
+
+    const renderTrendsView = () => (
+        <div className="trends-view">
+            <TrendMaster
+                onCreateBrief={handleCreateBriefFromTrend}
+                onAnalyzeCompetitor={(trend) => console.log('Analyze trend:', trend)}
+                onRefresh={() => console.log('Refresh trends')}
+            />
+        </div>
+    );
+
+    const renderImageEditorView = () => (
+        <div className="image-editor-view">
+            <ConversationalImageEditor
+                onSave={(image, format) => console.log('Save image:', format)}
+                onExport={(image, format) => console.log('Export image:', format)}
+            />
+        </div>
+    );
+
     const renderMainContent = () => {
         switch (activeView) {
             case 'chat': return renderChatView();
             case 'campaigns': return renderCampaignsView();
+            case 'workflow': return renderWorkflowView();
+            case 'calendar': return renderCalendarView();
+            case 'trends': return renderTrendsView();
             case 'assets': return renderAssetsView();
+            case 'image-editor': return renderImageEditorView();
             case 'brand': return renderBrandView();
             default: return renderChatView();
         }
@@ -766,6 +870,24 @@ function DashboardPage({ organizationId, onLogout, onNavigate }) {
                     </div>
                 </div>
             )}
+
+            {/* Deliverables Sliding Panel */}
+            <SlidingDeliverablesPanel
+                isOpen={showDeliverables}
+                onClose={() => setShowDeliverables(false)}
+                deliverables={deliverables}
+                onSelect={(id) => console.log('Selected deliverable:', id)}
+                onSave={(deliverable) => {
+                    setDeliverables(prev => prev.map(d =>
+                        d.id === deliverable.id ? deliverable : d
+                    ));
+                }}
+                onGenerate={async (action, text, type) => {
+                    console.log('AI action:', action, text, type);
+                    return text;
+                }}
+                campaignName={selectedCampaign?.name || 'Campaign'}
+            />
         </div>
     );
 }

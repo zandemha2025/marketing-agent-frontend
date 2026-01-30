@@ -862,3 +862,45 @@
         display: none;
     }
 }
+
+/* ---- New Feature Views ---- */
+
+/* Workflow View (Kanban) */
+.workflow-view {
+    height: 100%;
+    overflow: hidden;
+}
+
+.workflow-view .kanban-board {
+    height: 100%;
+}
+
+/* Calendar View */
+.calendar-view {
+    height: 100%;
+    overflow: hidden;
+}
+
+.calendar-view .social-calendar {
+    height: 100%;
+}
+
+/* Trends View (TrendMaster) */
+.trends-view {
+    height: 100%;
+    overflow: hidden;
+}
+
+.trends-view .trend-master {
+    height: 100%;
+}
+
+/* Image Editor View */
+.image-editor-view {
+    height: 100%;
+    overflow: hidden;
+}
+
+.image-editor-view .conversational-image-editor {
+    height: 100%;
+}
