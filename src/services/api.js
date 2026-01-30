@@ -2,7 +2,7 @@
  * API service for communicating with the backend.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/backend';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '/backend') + '/api';
 
 class ApiService {
     constructor() {
